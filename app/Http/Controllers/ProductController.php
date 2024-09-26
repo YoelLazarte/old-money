@@ -13,4 +13,10 @@ class ProductController extends Controller
             'products' => $allProducts
         ]);
     }
+
+    public function view(int $id){
+        return view('products.view', [
+            'product' => Product::findOrFail($id)
+        ]);
+    }
 }
