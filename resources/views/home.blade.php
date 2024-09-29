@@ -12,10 +12,10 @@
         <div class="mx-auto max-w-md order-2 md:order-1 mb-6">
             <h2 class="text-5xl mb-8 dark:text-stone-200 text-center lg:text-left"> Bienvenidos a <b>Old Money</b>! </h2>
                 <p class="dark:text-stone-300 text-center lg:text-left">Descubre una nueva forma de vestir con estilo y elegancia. En Old Money, cada prenda está diseñada para quienes aprecian la calidad y la atemporalidad. Explora nuestra colección exclusiva y lleva tu estilo al siguiente nivel.
-                <span class="font-bold">¡Compra ahora y transforma tu guardarropa!</span></p>
+                <span class="font-bold mb-8">¡Compra ahora y transforma tu guardarropa!</span></p>
 
-            <button type="button" class="mt-5 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Ver Mas</button>
-            <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Continuar</button>
+            <a href="/products/list" class="block mt-8 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Ver Productos</a>
+            <!-- <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Continuar</button> -->
         </div>
 
   <div class="order-1 md:order-2 mx-auto mb-6">

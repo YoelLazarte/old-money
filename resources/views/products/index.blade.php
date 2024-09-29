@@ -43,7 +43,7 @@
     <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-zinc-700 max-w-[300px]">
         <div class="h-56 w-full">
           <a href="#">
-            <img class="mx-auto h-full " src="{{ $product->img }}" alt="{{ $product->name }}" />
+            <img class="mx-auto h-full " src="../img/{{ $product->img }}" alt="{{ $product->name }}" />
           </a>
         </div>
         <div class="pt-6">
