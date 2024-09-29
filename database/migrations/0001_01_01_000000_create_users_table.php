@@ -49,6 +49,12 @@ return new class extends Migration
             'password' => \Hash::make('password'),
 
         ]);
+        \DB::table('users')->insert([
+            'name' => 'eze',
+            'email' => 'ezequiel.duce@davinci.edu.ar',
+            'password' => \Hash::make('password'),
+
+        ]);
 
     }
 

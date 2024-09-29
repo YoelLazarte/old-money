@@ -6,30 +6,6 @@
 
 
 @section('content')
-
-<!-- <div class="container ">
-    <div class="row">
-        <div class="col-12">
-            <h1>Ingresar a la cuenta</h1>
-            <form action="{{ route('auth.login.process') }}" method='POST'>
-                @csrf
-                <div class="label">
-                    <label for="email" class="" >Email</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}">
-                </div>
-                <div class="password">
-                    <label for="password" class="" >Contraseña</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <button type="submit" class="bg-red-300">Ingresar</button>
-            </form>
-        </div>
-    </div>
-</div> -->
-
-
-
-
 <div class="w-full max-w-sm p-4 mx-auto my-8 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
     <form class="space-y-6" action="{{ route('auth.login.process') }}" method="POST">
         @csrf

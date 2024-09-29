@@ -16,13 +16,21 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        // return [
+        //     // 'name' => fake()->sentence(),
+        //     'name' => fake()->words(3, true),
+        //     'description' => fake()->paragraph(),
+        //     'price' => fake()->numberBetween(10000, 50000),
+        //     'size' => fake()->randomElement(['S', 'M', 'L', 'XL']),
+        //     'img' => fake()->imageUrl(640, 480, 'product', true),
+        // ];
+
         return [
-            // 'name' => fake()->sentence(),
-            'name' => fake()->words(3, true),
-            'description' => fake()->paragraph(),
-            'price' => fake()->numberBetween(10000, 50000),
-            'size' => fake()->randomElement(['S', 'M', 'L', 'XL']),
-            'img' => fake()->imageUrl(640, 480, 'product', true),
+            'name' => 'Default Product',
+            'description' => 'This is a default product description.',
+            'price' => 10000,
+            'size' => 'M',
+            'img' => 'default.jpg',
         ];
     }
 }

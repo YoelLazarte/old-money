@@ -1,0 +1,142 @@
+[
+    {
+        "name": "Ankor",
+        "description": "Explora la sofisticación marítima con Ankor, la remera gris de la colección 'Forgotten Land' de Old Money. La pieza perfecta para aquellos que buscan anclarse en el estilo urbano con un toque de elegancia atemporal. Su ancla estampada en la parte posterior simboliza la conexión con la historia, mientras que el tono gris sutil añade modernidad.",
+        "price": 20000,
+        "size": "M",
+        "img": "ankor.webp"
+    },
+    {
+        "name": "Duomo",
+        "description": "La remera Duomo de la colección 'Forgotten Land' es un tributo a la arquitectura clásica. Con un diseño inspirado en las cúpulas icónicas, esta pieza trae la grandeza de la antigüedad al estilo moderno.",
+        "price": 21000,
+        "size": "L",
+        "img": "duomo.webp"
+    },
+    {
+        "name": "Farum",
+        "description": "Farum es una camiseta inspirada en la fuerza del viento que impulsa a los navegantes. Con un diseño minimalista y elegante, esta prenda es ideal para quienes buscan comodidad con estilo.",
+        "price": 19000,
+        "size": "S",
+        "img": "farum.webp"
+    },
+    {
+        "name": "Flos",
+        "description": "La camiseta Flos celebra la naturaleza en su forma más pura. Con un diseño floral delicado, esta pieza es perfecta para quienes aman los detalles sutiles.",
+        "price": 21000,
+        "size": "M",
+        "img": "flos.webp"
+    },
+    {
+        "name": "Fore",
+        "description": "Fore, una camiseta que evoca la grandeza de los bosques y la naturaleza virgen. Ideal para aquellos que buscan estar en sintonía con el entorno natural mientras conservan un estilo contemporáneo.",
+        "price": 22000,
+        "size": "XL",
+        "img": "fore.webp"
+    },
+    {
+        "name": "Hava",
+        "description": "Hava combina la frescura del viento y el mar en una camiseta única. Ideal para aventuras bajo el sol, con una comodidad excepcional.",
+        "price": 20000,
+        "size": "M",
+        "img": "hava.webp"
+    },
+    {
+        "name": "Hous",
+        "description": "Hous es una camiseta que refleja la simplicidad y elegancia del estilo urbano moderno. Diseñada para brindar comodidad en cualquier ocasión.",
+        "price": 19500,
+        "size": "S",
+        "img": "hous.webp"
+    },
+    {
+        "name": "Noir",
+        "description": "Noir es la camiseta negra de la colección 'Forgotten Land', una pieza clásica que añade misterio y elegancia a cualquier conjunto. Perfecta para una noche especial.",
+        "price": 23000,
+        "size": "M",
+        "img": "noir.webp"
+    },
+    {
+        "name": "Parma",
+        "description": "Inspirada en la belleza clásica de la ciudad de Parma, esta camiseta destaca por su diseño sutil y refinado, ideal para quienes buscan un look sofisticado.",
+        "price": 21000,
+        "size": "L",
+        "img": "parma.webp"
+    },
+    {
+        "name": "Qzip Chocolate",
+        "description": "Qzip Chocolate es la prenda ideal para quienes buscan elegancia y confort en tonos cálidos. Perfecta para el otoño, su diseño combina estilo y comodidad.",
+        "price": 22000,
+        "size": "M",
+        "img": "qzip-chocolate.webp"
+    },
+    {
+        "name": "Qzip Cream",
+        "description": "La sudadera Qzip Cream de Old Money es el epítome de la sofisticación. Con un tono crema suave y un diseño moderno, es perfecta para cualquier ocasión casual.",
+        "price": 23000,
+        "size": "L",
+        "img": "qzip-cream.webp"
+    },
+    {
+        "name": "Royal",
+        "description": "Royal, una camiseta que exuda clase y sofisticación con su profundo tono azul y detalles minimalistas, perfecta para quienes buscan un estilo refinado.",
+        "price": 24000,
+        "size": "XL",
+        "img": "royal.webp"
+    },
+    {
+        "name": "Short Beige",
+        "description": "Short Beige es la prenda versátil que combina con cualquier look de verano. Confeccionado en un tono beige neutral, es una adición esencial para tu guardarropa.",
+        "price": 18000,
+        "size": "M",
+        "img": "short-beige.webp"
+    },
+    {
+        "name": "Short Chocolate",
+        "description": "El Short Chocolate de Old Money es ideal para aquellos que buscan una opción cómoda y estilizada para los días cálidos. Perfecto para el día a día.",
+        "price": 19000,
+        "size": "L",
+        "img": "short-chocolate.webp"
+    },
+    {
+        "name": "Summit",
+        "description": "Summit representa la cima del confort y estilo. Inspirada en las montañas, esta camiseta es perfecta para quienes buscan un diseño limpio y natural.",
+        "price": 22000,
+        "size": "M",
+        "img": "summit.webp"
+    },
+    {
+        "name": "Sweater Azul",
+        "description": "El Sweater Azul de la colección Old Money es una prenda cómoda y elegante para los días fríos. Su color azul profundo añade un toque de sofisticación a cualquier look.",
+        "price": 27000,
+        "size": "XL",
+        "img": "sweater-azul.webp"
+    },
+    {
+        "name": "Sweater Gris",
+        "description": "Sweater Gris es una prenda atemporal, diseñada para quienes valoran la simplicidad y el estilo elegante. Perfecta para cualquier ocasión casual.",
+        "price": 26000,
+        "size": "L",
+        "img": "sweater-grey.webp"
+    },
+    {
+        "name": "Swor",
+        "description": "Swor es una camiseta que combina la modernidad con un toque de tradición. Su diseño es ideal para quienes aprecian los detalles únicos y la comodidad.",
+        "price": 20000,
+        "size": "M",
+        "img": "swor.webp"
+    },
+    {
+        "name": "Tee Beige",
+        "description": "Tee Beige es una camiseta versátil y cómoda, ideal para un look relajado. Su tono beige claro añade un toque de frescura y elegancia a tu estilo diario.",
+        "price": 18000,
+        "size": "S",
+        "img": "tee-beige.webp"
+    },
+    {
+        "name": "Tee Chocolate",
+        "description": "Tee Chocolate es una prenda suave y cómoda que destaca por su tono profundo y cálido. Perfecta para cualquier día, su estilo es tan atemporal como moderno.",
+        "price": 19000,
+        "size": "M",
+        "img": "tee-chocolate.webp"
+    }
+]
