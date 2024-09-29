@@ -35,6 +35,21 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        \DB::table('users')->insert([
+            'name' => 'valen',
+            'email' => 'valentino.gasipi@davinci.edu.ar',
+            'password' => \Hash::make('password'),
+
+        ]);
+
+        \DB::table('users')->insert([
+            'name' => 'yoe',
+            'email' => 'yoel.lazarte@davinci.edu.ar',
+            'password' => \Hash::make('password'),
+
+        ]);
+
     }
 
     /**
