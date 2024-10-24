@@ -17,7 +17,23 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'size',
-        'img'
+        // 'sizes',
+        'img',
+        'type_fk'
     ];
+
+    public function type(){
+        return $this->belongsTo(Type::class, 'type_fk', 'type_id');
+    }
+
+    public function sizes(){
+        return $this->belongsToMany(
+            Size::class,
+            'products_have_sizes',
+            'product_fk',
+            'size_fk',
+            'product_id',
+            'size_id'
+        );
+    }
 }

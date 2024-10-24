@@ -1,21 +1,52 @@
-/.phpunit.cache
-/node_modules
+# Laravel specific ignores
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
+
+# Environment files
 .env
 .env.backup
 .env.production
-.phpactor.json
+
+# PHPUnit caches
 .phpunit.result.cache
+.phpunit.cache
+
+# Laravel Homestead
 Homestead.json
 Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
+
+# Node dependencies
+/node_modules
+/npm-debug.log*
+/yarn-error.log*
+
+# PHP / Composer related files
+/phpactor.json
+/auth.json
+
+# IDE and editor specific ignores
 /.idea
 /.vscode
+/.fleet
 /.zed
+
+# MacOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+
+# Git related
+*.lock
+*.swp
+node_modules
+node_modules

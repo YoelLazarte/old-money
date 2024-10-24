@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Type;
+use App\Models\Size;
 
 
 class ProductController extends Controller
@@ -11,7 +13,7 @@ class ProductController extends Controller
 
 
     public function index(){
-        $allProducts = Product::all();
+        $allProducts = Product::with(['type', 'sizes'])->get();
         return view('products.index', [
             'products' => $allProducts
         ]);
@@ -24,7 +26,7 @@ class ProductController extends Controller
     }
 
     public function admin(){
-        $allProducts = Product::all();
+        $allProducts = Product::with(['type', 'sizes'])->get();
         return view('products.admin', [
             'products' => $allProducts
         ]);
@@ -32,9 +34,9 @@ class ProductController extends Controller
 
     public function createForm()
     {
-        $sizes = ['S', 'M', 'L', 'XL'];
         return view('products.create-form', [
-            'sizes' => $sizes
+            'types' => Type::all(),
+            'sizes' => Size::orderBy('name')->get(),
         ]);
     }
 
@@ -44,7 +46,8 @@ class ProductController extends Controller
             'name' => 'required|min:5',
             'price' => 'required|numeric',
             'description' => 'min:25',
-            'size' => '',
+            'sizes' => '',
+            'type' => '',
             'img' => 'required|image|mimes:png|max:400',
 
         ],[
@@ -54,7 +57,8 @@ class ProductController extends Controller
             'price.numeric' => 'El precio debe ser un numero.',
             'description.required' => 'La descripcion debe tener un valor.',
             'description.min' => 'La descripcion debe tener al menos :min caracteres.',
-            'size.required' => 'El talle debe tener un valor ( S, M, L, XL ).',
+            'sizes.required' => 'El talle debe tener un valor ( S, M, L, XL ).',
+            'type.required' => 'Debes elegir un tipo de prenda',
             'img.required' => 'La imágen es obligatoria',
             'img.max' => 'La imágen excede los kilobytes máximos - :max',
             'img.mimes' => 'La imágen no tiene el formato adecuado - png'
@@ -71,13 +75,15 @@ class ProductController extends Controller
             $image->move(public_path('img'), $imgName);
         }
 
-        //Acá no obtenemos el valor de la img ya qeu no es un input
-        $input = $request->only(['name', 'price', 'description', 'size']);
+        //Acá no obtenemos el valor de la img ya que no es un input
+        $input = $request->all();
 
         // Agregamos el nombre de la imagen a los datos a cargar 
         $input['img'] = $imgName; 
 
-        Product::create($input);
+        $product = Product::create($input);
+
+        $product->sizes()->attach($input['size_id']);
 
         return redirect()
             ->route('products.index')
@@ -90,10 +96,11 @@ class ProductController extends Controller
 
     public function editForm(int $id)
     {
-        $sizes = ['S', 'M', 'L', 'XL'];
+        // $sizes = ['S', 'M', 'L', 'XL'];
         return view('products.edit-form', [
             'product' => Product::findOrFail($id),
-            'sizes' => $sizes
+            'types' => Type::all(),
+            'sizes' => Size::orderBy('name')->get(),
         ]);
     }
 
@@ -105,8 +112,9 @@ class ProductController extends Controller
             'name' => 'required|min:5',
             'price' => 'required|numeric',
             'description' => 'min:25',
-            'size',
-            'img' => 'required|image|mimes:png|max:400',
+            'sizes',
+            'img' => 'image|mimes:png|max:400',
+            'type' => ''
         ],[
             'name.required' => 'El título debe tener un valor.',
             'name.min' => 'El título debe tener al menos :min caracteres.',
@@ -114,13 +122,13 @@ class ProductController extends Controller
             'price.numeric' => 'El precio debe ser un numero.',
             'description.required' => 'La descripcion debe tener un valor.',
             'description.min' => 'La descripcion debe tener al menos :min caracteres.',
-            'size.required' => 'El talle debe tener un valor ( S, M, L, XL ).',
-            'img.required' => 'La imágen es obligatoria',
+            'sizes.required' => 'El talle debe tener un valor ( S, M, L, XL ).',
+            // 'img.required' => 'La imágen es obligatoria',
             'img.max' => 'La imágen excede los kilobytes máximos - :max',
             'img.mimes' => 'La imágen no tiene el formato adecuado - png'
         ]);
 
-        $input = $request->only(['name', 'price', 'description', 'size']);
+        $input = $request->only(['name', 'price', 'description', 'sizes', 'type_fk']);
 
         //Verificamos si existe una nueva imágen
         if ($request->hasFile('img')) {
@@ -160,6 +168,8 @@ class ProductController extends Controller
         unlink($imgRoute);
         }
 
+
+        $product->sizes()->detach();
         $product->delete();
 
         return redirect()

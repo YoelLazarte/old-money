@@ -1,0 +1,18 @@
+[
+    {
+        "type_id": 1,
+        "name": "Remera"
+    },
+    {
+        "type_id": 2,
+        "name": "Pantalón"
+    },
+    {
+        "type_id": 3,
+        "name": "Buzo"
+    },
+    {
+        "type_id": 4,
+        "name": "Sweater"
+    }
+]

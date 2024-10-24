@@ -41,6 +41,7 @@
                <x-nav-link route="blog"> Sobre Nosotros </x-nav-link>
          </li>
 
+         @auth
          <li class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ps-2">
          <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
@@ -49,6 +50,7 @@
                </svg>
                <x-nav-link route="products.admin"> Admin </x-nav-link>
          </li>
+         @endauth
 
          <li class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ps-2">
             @guest

@@ -2,20 +2,6 @@
 @section('title', $product->name)
 
 @section('content')
-<!-- <article class="max-w-[1000px] m-auto">
-<a href="#" class="my-8 w-full flex justify-center flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-    <img class="max-w-md object-cover rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{ $product->img }}" alt="">
-
-    <div class=" flex-col justify-between p-4 leading-normal max-w-md">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</h5>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->description }}</p>
-            <div class=" flex-col">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${{ $product->price }}</h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->size }}</p>
-            </div>
-    </div>
-</a>
-</article> -->
 
 <section class="py-8 bg-white md:py-16 dark:bg-zinc-800 antialiased">
     <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
@@ -25,7 +11,10 @@
         </div>
 
         <div class="mt-6 sm:mt-8 lg:mt-0">
+          <div class="flex gap-4 items-center">
           <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">{{ $product->name }} </h1>
+          <span class="me-2 rounded bg-blue-100 px-2.5 py-0.5 h-fit text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"> {{ $product->type->name }} </span>
+          </div>
           <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
             <p
               class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
@@ -77,7 +66,9 @@
 
           <div class="mt-4">
             <h4 class="dark:text-stone-100 pb-2 font-bold">Talle</h4>
-            <span class="px-3 py-1 bg-stone-100 dark:bg-gray-400 dark:text-gray-200 rounded mt-8 border-gray-400">{{ $product->size }}</span>
+            @foreach ($product->sizes as $size)
+    <span class="px-3 py-1 bg-stone-100 dark:bg-gray-400 dark:text-gray-200 rounded mt-8 border-gray-400">{{ $size->name }}</span>
+@endforeach
           </div>
 
           <p class="mb-6 text-gray-500 dark:text-gray-400 mt-4">

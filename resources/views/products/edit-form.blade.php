@@ -49,8 +49,8 @@
                     @enderror
               </div>
               <div>
-                  <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
-                  <select id="size" name="size" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
+                  <select id="sizes" name="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach($sizes as $size)
                         <option value="{{ $size }}" {{ $product->size == $size ? 'selected' : '' }}>
                             {{ $size }}
@@ -58,12 +58,28 @@
                     @endforeach
 
                   </select>
-                  @error('size')
+                  @error('sizes')
                         <div class="text-red-400">
                             {{ $message }}
                         </div>
                     @enderror
               </div>
+              <div>
+                <label for="type_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+              <select value="{{ old('type') }}" id="type_fk" name="type_fk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @foreach($types as $type)
+                    <option value="{{ $type->type_id }}" @selected($type->type_id == old('type_fk', $product->type_fk))>
+                        {{ $type->name }}
+                    </option>
+                @endforeach
+
+              </select>
+              @error('type')
+                    <div class="text-red-400">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
               <div class="sm:col-span-2">
                   <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
                   <textarea name="description" id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ old('description', $product->description) }}</textarea>

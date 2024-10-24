@@ -6,9 +6,11 @@
 
 @section('content')
 
+@auth
 <a href="{{ route('products.create.form') }}" class="flex w-fit ms-auto items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-              Añadir Producto
-          </a>
+    Añadir Producto
+</a>
+@endauth
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -40,9 +42,11 @@
                 <th scope="col" class="px-6 py-3">
                     Weight
                 </th> -->
+                @auth
                 <th scope="col" class="px-6 py-3">
                     Acciones
                 </th>
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -60,7 +64,9 @@
                 {{ $product->name }}
                 </td>
                 <td class="px-6 py-4">
-                {{ $product->size }}
+                    @foreach ($product->sizes as $size)
+                    <span>{{ $size->name }}</span>
+                @endforeach
                 </td>
                 <td class="px-6 py-4">
                 {{ $product->description }}
@@ -71,6 +77,7 @@
                 <!-- <td class="px-6 py-4">
                     3.0 lb.
                 </td> -->
+                @auth
                 <td >
                     <a href="{{ route('products.edit.form',['id' => $product->product_id])}}" class="block text-center font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                     <form class="block text-center" action="{{ route('products.delete.process',['id' => $product->product_id])}}" method="post">
@@ -79,6 +86,7 @@
                     <input type="submit" class=" text-center font-medium text-red-600 dark:text-red-500 hover:underline" onclick="return confirm('¿Desea borrrar el producto?')" value="Borrar"/>
                     </form>
                 </td>
+                @endauth
             </tr>
 
             @endforeach
