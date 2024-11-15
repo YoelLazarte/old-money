@@ -33,25 +33,20 @@ Homestead.yaml
 /.fleet
 /.zed
 
-# MacOS specific files
-.DS_Store
+# System specific files
+.DS_Store       # macOS
+Thumbs.db       # Windows
 
-# Windows specific files
-Thumbs.db
-
-# Log files
+# Log and temporary files
 *.log
-
-# Temporary files
 *.tmp
+
+# Swap files
+*.swp
 
 # Git related
 *.lock
-*.swp
-node_modules
-/node_modules
-node_modules/*
 
+# Custom directories and files to ignore
 .idx
 .idx/.data
-
