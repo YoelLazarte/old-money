@@ -16,8 +16,12 @@
         @foreach($products as $product)
     <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-zinc-700 max-w-[300px]">
         <div class="h-56 w-full">
-          <a href="#">
-            <img class="mx-auto h-full " src="../img/{{ $product->img }}" alt="{{ $product->name }}" />
+          <a href="{{ route('products.view', ['id' => $product->product_id]) }}">
+            @if ($product->cover)
+            <img class="w-full" src="{{ Storage::url($product->cover) }}" alt="{{ $product->cover_description }}" />
+            @else
+              <span>No hay Foto de {{ $product->name }}</span>
+            @endif
           </a>
         </div>
         <div class="pt-6">
@@ -110,8 +114,9 @@
         
 
 @endforeach
-
 </section>
+{{  $products->links() }}
+
 
 
 

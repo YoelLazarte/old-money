@@ -18,8 +18,10 @@ class Product extends Model
         'description',
         'price',
         // 'sizes',
-        'img',
-        'type_fk'
+        // 'img',
+        'type_fk',
+        'cover',
+        'cover_description'
     ];
 
     public function type(){

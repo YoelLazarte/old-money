@@ -49,4 +49,9 @@ Thumbs.db
 *.lock
 *.swp
 node_modules
-node_modules
+/node_modules
+node_modules/*
+
+.idx
+.idx/.data
+

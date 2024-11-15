@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->text('description');
             $table->unsignedBigInteger('price');
-            $table->string('img');
+            // $table->string('img');
             // relacionamos la tabla size con la tabla products
             // $table->unsignedBigInteger('size_fk')->nullable();
             // $table->foreign('size_id')->references('size_id')->on('sizes');            

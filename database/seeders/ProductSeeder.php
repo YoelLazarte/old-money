@@ -33,7 +33,8 @@ class ProductSeeder extends Seeder
                 'name' => $product['name'],
                 'description' => $product['description'],
                 'price' => $product['price'],
-                'img' => $product['img'],
+                'cover' => $product['cover'],
+                'cover_description' => $product['cover_description'],
             ]);
 
             // Verifica si hay tamaños asociados

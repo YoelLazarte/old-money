@@ -58,3 +58,28 @@ Route::delete('products/{id}/eliminar', [App\Http\Controllers\ProductController:
  
  Route::post('/cerrar-sesion', [App\Http\Controllers\AuthController::class , "logoutProcess"])
    ->name('auth.logout.process');
+
+
+
+// Rutas del servicio de Mail
+
+Route::post('/products/{id}/reservar', [App\Http\Controllers\ProductReservationController::class , "reservationProcess"])
+   ->name('products.reservation.process');
+
+Route::get('/tests/emails/reserva-producto', [App\Http\Controllers\ProductReservationController::class , "printEmail"])
+   ->name('products.reservation.test');
+
+  //  Rutas de pago
+
+Route::get('test/mercadopago', [\App\Http\Controllers\MercadoPagoController::class, 'show'])
+  ->name('test.mercadopago.show');
+// Route::get('test/mercadopago/v2', [\App\Http\Controllers\MercadoPagoController::class, 'showV2'])
+//   ->name('test.mercadopago.show.v2');
+Route::get('test/mercadopago/success', [\App\Http\Controllers\MercadoPagoController::class, 'successProcess'])
+  ->name('test.mercadopago.successProcess');
+Route::get('test/mercadopago/pending', [\App\Http\Controllers\MercadoPagoController::class, 'pendingProcess'])
+  ->name('test.mercadopago.pendingProcess');
+Route::get('test/mercadopago/failure', [\App\Http\Controllers\MercadoPagoController::class, 'failureProcess'])
+  ->name('test.mercadopago.failureProcess');
+
+  
