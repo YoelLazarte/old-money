@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -56,7 +59,36 @@ class AuthController extends Controller
             ->with('feedback.message', 'Cierre de sesion exitoso')
             ->with('feedback.color', 'blue');
     
-    
+    }
+
+    public function registerForm(){
+        return view('auth.register-form');
+    }
+
+    public function registerProccess(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'email.unique' => 'Este correo ya está registrado.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()
+            ->route('auth.login.form')
+            ->with('feedback.message', 'Usuario registrado con éxito. Por favor, inicie sesión.')
+            ->with('feedback.color', 'green');
     }
 
 

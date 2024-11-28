@@ -2,7 +2,7 @@
 
     Hola Usuario
 
-    tyreserva del producto <b>{{ $product->name }}</b> se registro con exito
+    tu reserva del producto <b>{{ $product->name }}</b> se registro con exito
 
     Guarda este mail como comprobante
 

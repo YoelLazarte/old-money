@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, "home"])
  ->name('home');
@@ -8,16 +9,23 @@ Route::get('/', [App\Http\Controllers\HomeController::class, "home"])
 Route::get('/blog', [App\Http\Controllers\HomeController::class, "blog"])
  ->name('blog');
 
+Route::get('product/{id}', [App\Http\Controllers\ProductController::class, "view"])
+ ->name('products.view')
+ ->whereNumber('id');
+ 
+Route::get('products/list', [App\Http\Controllers\ProductController::class, "index"])
+  ->name('products.index');
 
- Route::get('products/list', [App\Http\Controllers\ProductController::class, "index"])
-    ->name('products.index');
+
 
 Route::get('products/admin', [App\Http\Controllers\ProductController::class, "admin"])
-->name('products.admin');
+  ->name('products.admin')
+  ->middleware(['auth', RoleMiddleware::class]);
 
-Route::get('product/{id}', [App\Http\Controllers\ProductController::class, "view"])
-   ->name('products.view')
-   ->whereNumber('id');
+Route::get('products/users', [App\Http\Controllers\UserController::class, "users"])
+  ->name('products.users')
+  ->middleware(['auth', RoleMiddleware::class]);
+
 
 
 
@@ -49,15 +57,22 @@ Route::delete('products/{id}/eliminar', [App\Http\Controllers\ProductController:
 
 
 // Rutas para la autenticacion
-   
- Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginForm"])
-   ->name('auth.login.form');
-   
- Route::post('/iniciar-sesion', [App\Http\Controllers\AuthController::class , "loginProcess"])
-   ->name('auth.login.process');
- 
- Route::post('/cerrar-sesion', [App\Http\Controllers\AuthController::class , "logoutProcess"])
-   ->name('auth.logout.process');
+
+Route::get('/iniciar-sesion', [App\Http\Controllers\AuthController::class, "loginForm"])
+    ->name('auth.login.form');
+
+Route::post('/iniciar-sesion', [App\Http\Controllers\AuthController::class , "loginProcess"])
+    ->name('auth.login.process');
+
+Route::get('/register', [App\Http\Controllers\AuthController::class , "registerForm"])
+    ->name('auth.register.form');
+
+Route::post('/register', [App\Http\Controllers\AuthController::class , "registerProccess"])
+    ->name('auth.register.process');
+
+Route::post('/cerrar-sesion', [App\Http\Controllers\AuthController::class , "logoutProcess"])
+    ->name('auth.logout.process');
+
 
 
 
@@ -69,16 +84,22 @@ Route::post('/products/{id}/reservar', [App\Http\Controllers\ProductReservationC
 Route::get('/tests/emails/reserva-producto', [App\Http\Controllers\ProductReservationController::class , "printEmail"])
    ->name('products.reservation.test');
 
-  //  Rutas de pago
+
+
+//  Rutas de pago
 
 Route::get('test/mercadopago', [\App\Http\Controllers\MercadoPagoController::class, 'show'])
   ->name('test.mercadopago.show');
+
 // Route::get('test/mercadopago/v2', [\App\Http\Controllers\MercadoPagoController::class, 'showV2'])
 //   ->name('test.mercadopago.show.v2');
+
 Route::get('test/mercadopago/success', [\App\Http\Controllers\MercadoPagoController::class, 'successProcess'])
   ->name('test.mercadopago.successProcess');
+
 Route::get('test/mercadopago/pending', [\App\Http\Controllers\MercadoPagoController::class, 'pendingProcess'])
   ->name('test.mercadopago.pendingProcess');
+  
 Route::get('test/mercadopago/failure', [\App\Http\Controllers\MercadoPagoController::class, 'failureProcess'])
   ->name('test.mercadopago.failureProcess');
 

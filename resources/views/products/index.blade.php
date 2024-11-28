@@ -10,7 +10,7 @@
 
 
 
-<section class="flex flex-wrap gap-8 mx-4 justify-center">
+<section class="flex flex-wrap gap-8 mx-4 justify-center mb-6">
 
         
         @foreach($products as $product)
@@ -18,7 +18,7 @@
         <div class="h-56 w-full">
           <a href="{{ route('products.view', ['id' => $product->product_id]) }}">
             @if ($product->cover)
-            <img class="w-full" src="{{ Storage::url($product->cover) }}" alt="{{ $product->cover_description }}" />
+            <img class="w-full" src="{{ Storage::url('covers/' . $product->cover) }}" alt="{{ $product->cover_description }}" />
             @else
               <span>No hay Foto de {{ $product->name }}</span>
             @endif
@@ -115,7 +115,9 @@
 
 @endforeach
 </section>
-{{  $products->links() }}
+<div class="max-w-xl gap-8 mx-auto">
+  {{  $products->links() }}
+</div>
 
 
 

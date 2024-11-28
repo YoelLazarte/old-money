@@ -3,7 +3,7 @@
 
     <p>Hola Usuario</p>
 
-    <p>tyreserva del producto <b>{{ $product->name }}</b> se registro con exito!</p>
+    <p>tu reserva del producto <b>{{ $product->name }}</b> se registro con exito!</p>
 
     <p>Guarda este mail como comprobante</p>
 
