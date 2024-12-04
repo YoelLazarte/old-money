@@ -16,6 +16,10 @@ Route::get('product/{id}', [App\Http\Controllers\ProductController::class, "view
 Route::get('products/list', [App\Http\Controllers\ProductController::class, "index"])
   ->name('products.index');
 
+Route::get('cart/cart', [App\Http\Controllers\CartController::class, "viewCart"])
+  ->name('cart.view');
+
+
 
 
 Route::get('products/admin', [App\Http\Controllers\ProductController::class, "admin"])
@@ -91,9 +95,6 @@ Route::get('/tests/emails/reserva-producto', [App\Http\Controllers\ProductReserv
 Route::get('test/mercadopago', [\App\Http\Controllers\MercadoPagoController::class, 'show'])
   ->name('test.mercadopago.show');
 
-// Route::get('test/mercadopago/v2', [\App\Http\Controllers\MercadoPagoController::class, 'showV2'])
-//   ->name('test.mercadopago.show.v2');
-
 Route::get('test/mercadopago/success', [\App\Http\Controllers\MercadoPagoController::class, 'successProcess'])
   ->name('test.mercadopago.successProcess');
 
@@ -103,4 +104,21 @@ Route::get('test/mercadopago/pending', [\App\Http\Controllers\MercadoPagoControl
 Route::get('test/mercadopago/failure', [\App\Http\Controllers\MercadoPagoController::class, 'failureProcess'])
   ->name('test.mercadopago.failureProcess');
 
+
+// Rutas carrito
+
+// Route::get('cart', [\App\Http\Controllers\CartController::class, 'viewCart'])
+//   ->name('cart.view');
+
+Route::post('cart/add/{id}', [\App\Http\Controllers\CartController::class, 'addToCart'])
+  ->name('cart.add');
+
+Route::post('cart/complete', [\App\Http\Controllers\CartController::class, 'completeOrder'])
+  ->name('cart.complete');
+
+Route::post('cart/finalizar-reserva', [\App\Http\Controllers\OrderProcessController::class, 'finalizeAndReserve'])
+->name('cart.finalize_reserve');
+
+Route::get('orders/history', [\App\Http\Controllers\CartController::class, 'orderHistory'])
+  ->name('orders.history');
   

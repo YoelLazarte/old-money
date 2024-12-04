@@ -7,6 +7,11 @@
 
 @section('content')
 <div class="w-full max-w-sm p-4 mx-auto my-8 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    {{-- @if (session('feedback.message'))
+    <div class="w-96 mt-8 mx-auto flex items-center p-4 mb-4 text-sm text-{{session()->get('feedback.color')}}-800 border border-{{session()->get('feedback.color')}}-300 rounded-lg bg-{{session()->get('feedback.color')}}-50 dark:bg-gray-800 dark:text-white dark:border-{{session()->get('feedback.color')}}-800" role="alert">
+            {{ session('feedback.message') }}
+        </div>
+    @endif --}}
     <form class="space-y-6" action="{{ route('auth.login.process') }}" method="POST">
         @csrf
         <h5 class="text-xl font-medium text-gray-900 dark:text-white">Inicia sesión</h5>

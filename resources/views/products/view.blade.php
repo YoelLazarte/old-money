@@ -102,15 +102,8 @@
             @auth
 
 
-            <form action="{{ route('products.reservation.process', ['id' => $product->product_id]) }}" method="POST" >
+            {{-- <form action="{{ route('products.reservation.process', ['id' => $product->product_id]) }}" method="POST" >
               @csrf
-              {{-- <a href="#" title="" type="" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center" role="button">
-                <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-
-                </svg>
-                Agregar al carrito
-              </a>  --}}
 
               <button type="submit" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center">
                 <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -118,6 +111,18 @@
                 </svg>
                 
                 Agregar al carrito
+              </button>
+            </form> --}}
+
+            <form action="{{ route('cart.add', ['id' => $product->product_id]) }}" method="POST" >
+              @csrf
+
+              <button type="submit" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center">
+                <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                </svg>
+                
+                Agregar al carrito 
               </button>
             </form>
 
