@@ -88,10 +88,12 @@ class ProductController extends Controller
     public function editForm(int $id)
     {
         // $sizes = ['S', 'M', 'L', 'XL'];
+        $product = Product::findOrFail($id);
         return view('products.edit-form', [
             'product' => Product::findOrFail($id),
             'types' => Type::all(),
             'sizes' => Size::orderBy('name')->get(),
+            'selectedSizes' => $product->sizes->pluck('size_id')->toArray()
         ]);
     }
 
@@ -129,7 +131,8 @@ class ProductController extends Controller
 
     $product->update($input);
 
-    $product->sizes()->sync($request->input('sizes_fks', []));
+    $product->sizes()->sync($request->input('size_id', []));
+
 
     return redirect()
         ->route('products.admin')

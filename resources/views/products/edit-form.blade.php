@@ -76,14 +76,20 @@
 
               <div>
                 <label for="sizes" class="flex mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
-                  <div class="flex items-center gap-6 dark:text-white">
+                <div class="flex items-center gap-6 dark:text-white">
                     @foreach($sizes as $size)
-                      <div>
-                        <input class="dark:bg-gray-700 rounded-sm w-5 h-5" type="checkbox" name="size_id[]" value="{{ $size->size_id }}" @checked(in_array($size->size_id, old('size_id', [])))>
-                          {{ $size->name }}
-                      </div>
-                  @endforeach
-                  </div>
+                        <div>
+                            <input 
+                                class="dark:bg-gray-700 rounded-sm w-5 h-5" 
+                                type="checkbox" 
+                                name="size_id[]" 
+                                value="{{ $size->size_id }}" 
+                                @checked(in_array($size->size_id, old('size_id', $selectedSizes ?? [])))
+                            >
+                            {{ $size->name }}
+                        </div>
+                    @endforeach
+                </div>
 
                 @error('sizes')
                       <div class="text-red-400">
