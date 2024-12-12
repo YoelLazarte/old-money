@@ -104,4 +104,28 @@ class CartController extends Controller
         return view('orders.history', ['orders' => $orders]);
         
     }
+
+    public function updateCart(Request $request)
+{
+    $user = auth()->user();
+    $order = $user->orders()->where('status', 'in_cart')->first();
+
+    if (!$order) {
+        return redirect()->back()->with('error', 'No hay productos en el carrito.');
+    }
+
+    foreach ($request->quantities as $productId => $quantity) {
+        if ($quantity <= 0) {
+            // Elimina el producto si la cantidad es 0
+            $order->products()->detach($productId);
+        } else {
+            // Actualiza la cantidad
+            $order->products()->updateExistingPivot($productId, ['quantity' => $quantity]);
+        }
+    }
+
+    return redirect()->back()->with('success', 'Carrito actualizado correctamente.');
+}
+
+
 }

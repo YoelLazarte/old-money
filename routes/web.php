@@ -121,4 +121,7 @@ Route::post('cart/finalizar-reserva', [\App\Http\Controllers\OrderProcessControl
 
 Route::get('orders/history', [\App\Http\Controllers\CartController::class, 'orderHistory'])
   ->name('orders.history');
+
+  Route::post('cart/update', [\App\Http\Controllers\CartController::class, 'updateCart'])->name('cart.update');
+
   
