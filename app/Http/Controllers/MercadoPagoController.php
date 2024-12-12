@@ -15,22 +15,24 @@ class MercadoPagoController extends Controller
     public function show(){
         $products = Product::whereIn('product_id', [1,3])->get();
 
-        // integraciones con mercadopago 
-
         $items = [];
         
         foreach($products as $product){
             $items[] = [
-                'id' => $product-> product_id,
-                'title' => $product-> name,
-                'unit_price' => $product-> price,
-                'quantity' => $product-> price,
+                'id' => $product->product_id,
+                'title' => $product->name,
+                'unit_price' => $product->price,
+                // 'quantity' => $product-> price,
+                'quantity' => 1,
+
             ];
         }
 
         try {
             
-            MercadoPagoConfig::setAccessToken(config(mercadopago.access_token));
+            // MercadoPagoConfig::setAccessToken(config(mercadopago.access_token));
+            MercadoPagoConfig::setAccessToken(config('mercadopago.access_token'));
+
 
             // iniciamos nuestro "factory" de preferencias (cobro)
 
@@ -40,28 +42,39 @@ class MercadoPagoController extends Controller
                 'items' => $items,
                 // Configuramos las back_urls
                 'back_urls' => [
-                    'success' => route('test.mercadopago.successProcess'),
-                    'pending' => route('test.mercadopago.pendingProcess'),
-                    'failure' => route('test.mercadopago.failureProcess'),
+                    'success' => route('mercadopago.successProcess'),
+                    'pending' => route('mercadopago.pendingProcess'),
+                    'failure' => route('mercadopago.failureProcess'),
                 ],
                 'auto_return' => 'approved',
             ]);
-
-            
-        
         } catch (\Throwable $e) {
             dd($e);
         }
 
-        return view ('test.mercadopago', [
-            'product' => $product,
+        return view ('mercadopago', [
+            
+            'products' => $products,
             'preference' => $preference,
             // pasar la clave publica para poder agregarla en la conexion de JS
-            'PublicKey' => config('mercadopago.public_key')
+            'publicKey' => config('mercadopago.public_key')
             
         ]);
-
     }
 
-    
+    public function successProcess(Request $request)
+    {
+        dd($request->query);
+    }
+
+    public function pendingProcess(Request $request)
+    {
+        dd($request->query);
+    }
+
+    public function failureProcess(Request $request)
+    {
+        dd($request->query);
+    }
+
 }

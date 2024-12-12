@@ -92,23 +92,23 @@ Route::get('/tests/emails/reserva-producto', [App\Http\Controllers\ProductReserv
 
 //  Rutas de pago
 
-Route::get('test/mercadopago', [\App\Http\Controllers\MercadoPagoController::class, 'show'])
-  ->name('test.mercadopago.show');
+Route::get('mercadopago', [\App\Http\Controllers\MercadoPagoController::class, 'show'])
+  ->name('mercadopago.show');
 
-Route::get('test/mercadopago/success', [\App\Http\Controllers\MercadoPagoController::class, 'successProcess'])
-  ->name('test.mercadopago.successProcess');
+Route::get('mercadopago/success', [\App\Http\Controllers\MercadoPagoController::class, 'successProcess'])
+  ->name('mercadopago.successProcess');
 
-Route::get('test/mercadopago/pending', [\App\Http\Controllers\MercadoPagoController::class, 'pendingProcess'])
-  ->name('test.mercadopago.pendingProcess');
+Route::get('mercadopago/pending', [\App\Http\Controllers\MercadoPagoController::class, 'pendingProcess'])
+  ->name('mercadopago.pendingProcess');
   
-Route::get('test/mercadopago/failure', [\App\Http\Controllers\MercadoPagoController::class, 'failureProcess'])
-  ->name('test.mercadopago.failureProcess');
+Route::get('mercadopago/failure', [\App\Http\Controllers\MercadoPagoController::class, 'failureProcess'])
+  ->name('mercadopago.failureProcess');
 
 
 // Rutas carrito
 
-// Route::get('cart', [\App\Http\Controllers\CartController::class, 'viewCart'])
-//   ->name('cart.view');
+Route::get('cart', [\App\Http\Controllers\CartController::class, 'viewCart'])
+  ->name('cart.view');
 
 Route::post('cart/add/{id}', [\App\Http\Controllers\CartController::class, 'addToCart'])
   ->name('cart.add');

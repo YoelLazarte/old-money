@@ -8,10 +8,6 @@ use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Resources\Preference;
 use Monolog\Processor\UidProcessor;
 
-
-
-
-
 class MercadoPagoPayment
 {
 
@@ -21,10 +17,7 @@ class MercadoPagoPayment
     private array $backUrls = [];
     private bool $autoReturn = false;
 
-    
-    /**
-     * Create a new class instance.
-     */
+
     public function __construct()
     {
         

@@ -38,12 +38,47 @@ class CartController extends Controller
                 ->with('feedback.message', 'Debes iniciar sesión para ver el carrito.')
                 ->with('feedback.color', 'red');
         }
-
+    
         $user = auth()->user();
         $order = $user->orders()->where('status', 'in_cart')->with('products')->first();
-
-        return view('cart.cart', ['order' => $order]);
+    
+        // Configuración de MercadoPago
+        \MercadoPago\MercadoPagoConfig::setAccessToken(config('mercadopago.access_token'));
+    
+        $items = [];
+        if ($order && $order->products->count()) {
+            foreach ($order->products as $product) {
+                $items[] = [
+                    'id' => $product->product_id,
+                    'title' => $product->name,
+                    'unit_price' => $product->price,
+                    'quantity' => 1,
+                ];
+            }
+        }
+    
+        try {
+            $preferenceFactory = new \MercadoPago\Client\Preference\PreferenceClient();
+            $preference = $preferenceFactory->create([
+                'items' => $items,
+                'back_urls' => [
+                    'success' => route('mercadopago.successProcess'),
+                    'pending' => route('mercadopago.pendingProcess'),
+                    'failure' => route('mercadopago.failureProcess'),
+                ],
+                'auto_return' => 'approved',
+            ]);
+        } catch (\Throwable $e) {
+            dd($e);
+        }
+    
+        return view('cart.cart', [
+            'order' => $order,
+            'publicKey' => config('mercadopago.public_key'),
+            'preference' => $preference
+        ]);
     }
+    
 
 
     public function completeOrder(Request $request){
