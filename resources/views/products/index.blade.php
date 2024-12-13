@@ -10,7 +10,31 @@
 
 
 
+<section>
+  <form action="{{ route('products.index') }}" method="GET">
+    <div class="flex gap-4 items-end mb-8 mx-auto w-fit">
+      <div>
+        <label for="s-name" class="sr-only">Nombre</label>
+        <input type="search" name="s-name" id="s-name" class="rounded-md" value="{{ $searchParams['s-name'] }}">
+      </div>
+      <button class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Buscar
+        <svg class="w-4 h-4 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.05-4.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+@if ($products->isNotEmpty())
+<p class="text-center dark:text-white mb-4">Mostrando resultados para la búsqueda de:  <b>{{ $searchParams['s-name'] }}</b>  </p>
+@else
+  <p class="text-center dark:text-white">No se encontraron resultados para <b>{{ $searchParams['s-name'] }}</b></p>
+@endif
+
 <section class="flex flex-wrap gap-8 mx-4 justify-center mb-6">
+
 
         
         @foreach($products as $product)

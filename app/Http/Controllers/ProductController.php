@@ -13,10 +13,22 @@ class ProductController extends Controller
 {
 
 
-    public function index(){
-        $allProducts = Product::with(['type', 'sizes'])->paginate(10);
+    public function index(Request $request){
+
+        $productQuery = Product::with(['type', 'sizes']);
+
+        $searchParams = [
+            's-name' => $request->query('s-name')
+        ];
+
+        if($searchParams['s-name']){
+            $productQuery->where('name', 'like', '%' . $searchParams['s-name'] . '%');
+        };
+
+        $allProducts = $productQuery->paginate(10)->withQueryString();
         return view('products.index', [
-            'products' => $allProducts
+            'products' => $allProducts,
+            'searchParams' => $searchParams,
         ]);
     }
 

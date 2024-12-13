@@ -31,8 +31,9 @@ class CartController extends Controller
             ->with('feedback.message', 'El producto fue agregado al carrito')
             ->with('feedback.color', 'indigo');
     }
-
-    public function viewCart(){
+    
+    public function viewCart()
+    {
         if (!auth()->check()) {
             return to_route('auth.login.form')
                 ->with('feedback.message', 'Debes iniciar sesión para ver el carrito.')
@@ -42,19 +43,26 @@ class CartController extends Controller
         $user = auth()->user();
         $order = $user->orders()->where('status', 'in_cart')->with('products')->first();
     
+        // Verifica si el carrito está vacío
+        if (!$order || !$order->products->count()) {
+            return view('cart.cart', [
+                'order' => null,
+                'publicKey' => config('mercadopago.public_key'),
+                'preference' => null,
+            ]);
+        }
+    
         // Configuración de MercadoPago
         \MercadoPago\MercadoPagoConfig::setAccessToken(config('mercadopago.access_token'));
     
         $items = [];
-        if ($order && $order->products->count()) {
-            foreach ($order->products as $product) {
-                $items[] = [
-                    'id' => $product->product_id,
-                    'title' => $product->name,
-                    'unit_price' => $product->price,
-                    'quantity' => 1,
-                ];
-            }
+        foreach ($order->products as $product) {
+            $items[] = [
+                'id' => $product->product_id,
+                'title' => $product->name,
+                'unit_price' => $product->price,
+                'quantity' => $product->pivot->quantity,
+            ];
         }
     
         try {
@@ -69,13 +77,15 @@ class CartController extends Controller
                 'auto_return' => 'approved',
             ]);
         } catch (\Throwable $e) {
-            dd($e);
+            // Manejo de error: registra el error y muestra mensaje
+            \Log::error('Error en MercadoPago: ' . $e->getMessage());
+            return back()->withErrors('Ocurrió un error al procesar el carrito.');
         }
     
         return view('cart.cart', [
             'order' => $order,
             'publicKey' => config('mercadopago.public_key'),
-            'preference' => $preference
+            'preference' => $preference,
         ]);
     }
     
@@ -111,7 +121,8 @@ class CartController extends Controller
     $order = $user->orders()->where('status', 'in_cart')->first();
 
     if (!$order) {
-        return redirect()->back()->with('error', 'No hay productos en el carrito.');
+        return redirect()->back()->with('feedback.message', 'No hay productos en el carrito')
+        ->with('feedback.color', 'red');
     }
 
     foreach ($request->quantities as $productId => $quantity) {
@@ -124,7 +135,8 @@ class CartController extends Controller
         }
     }
 
-    return redirect()->back()->with('success', 'Carrito actualizado correctamente.');
+    return redirect()->back()->with('feedback.message', 'Carrito actualizado')
+    ->with('feedback.color', 'blue');
 }
 
 
