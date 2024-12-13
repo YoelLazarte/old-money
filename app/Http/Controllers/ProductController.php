@@ -18,16 +18,22 @@ class ProductController extends Controller
         $productQuery = Product::with(['type', 'sizes']);
 
         $searchParams = [
-            's-name' => $request->query('s-name')
+            's-name' => $request->query('s-name'),
+            's-type' => $request->query('s-type')
         ];
 
         if($searchParams['s-name']){
             $productQuery->where('name', 'like', '%' . $searchParams['s-name'] . '%');
         };
 
+        if($searchParams['s-type']) {
+            $productQuery->where('type_fk', '=', $searchParams['s-type']);
+        };
+
         $allProducts = $productQuery->paginate(10)->withQueryString();
         return view('products.index', [
             'products' => $allProducts,
+            'types' => Type::all(),
             'searchParams' => $searchParams,
         ]);
     }

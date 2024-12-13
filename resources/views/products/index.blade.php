@@ -11,11 +11,28 @@
 
 
 <section>
-  <form action="{{ route('products.index') }}" method="GET">
-    <div class="flex gap-4 items-end mb-8 mx-auto w-fit">
+  <form action="{{ route('products.index') }}" method="GET" class="flex justify-center mb-8">
+    <div class="flex gap-4 ">
       <div>
         <label for="s-name" class="sr-only">Nombre</label>
         <input type="search" name="s-name" id="s-name" class="rounded-md" value="{{ $searchParams['s-name'] }}">
+      </div>
+      <div>
+        <label for="s-type" class="sr-only">Tipo de prenda</label>
+        <select
+            name="s-type"
+            id="s-type"
+            class="form-control rounded-md"
+        >
+            <option value="">Todas</option>
+            @foreach ($types as $type)
+                <option value="{{ $type->type_id }}"
+                    @selected($type->type_id == $searchParams['s-type'])
+                >
+                    {{ $type->name }}
+                </option>
+            @endforeach
+        </select>
       </div>
       <button class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Buscar
@@ -27,11 +44,40 @@
   </form>
 </section>
 
-@if ($products->isNotEmpty())
-<p class="text-center dark:text-white mb-4">Mostrando resultados para la búsqueda de:  <b>{{ $searchParams['s-name'] }}</b>  </p>
-@else
-  <p class="text-center dark:text-white">No se encontraron resultados para <b>{{ $searchParams['s-name'] }}</b></p>
+@if ($products->isNotEmpty() && ($searchParams['s-name'] || $searchParams['s-type']))
+  <p class="text-center dark:text-white mb-4">
+    Mostrando resultados para: 
+    @if ($searchParams['s-name'] && $searchParams['s-type'])
+      <b>{{ $searchParams['s-name'] }}</b> y 
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @elseif ($searchParams['s-name'])
+      <b>{{ $searchParams['s-name'] }}</b>
+    @elseif ($searchParams['s-type'])
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @endif
+  </p>
+@elseif ($products->isEmpty() && ($searchParams['s-name'] || $searchParams['s-type']))
+  <p class="text-center dark:text-white">
+    No se encontraron resultados para 
+    @if ($searchParams['s-name'])
+      <b>{{ $searchParams['s-name'] }}</b> 
+    @endif
+    @if ($searchParams['s-type'])
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      {{ $searchParams['s-name'] ? 'y' : '' }} 
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @endif
+  </p>
 @endif
+
 
 <section class="flex flex-wrap gap-8 mx-4 justify-center mb-6">
 
