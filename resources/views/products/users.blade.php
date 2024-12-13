@@ -51,26 +51,27 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-    
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    
+                    <td class="px-6 py-4">{{ $user->id }}</td>
+                    <td class="px-6 py-4">{{ $user->name }}</td>
+                    <td class="px-6 py-4">{{ $user->email }}</td>
                     <td class="px-6 py-4">
-                    {{ $user->id }}
+                        <form action="{{ route('admin.updateRole', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <select name="role" class="border rounded px-2 py-1">
+                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>Usuario</option>
+                            </select>
+                            <button type="submit" class="ml-2 text-white bg-blue-500 px-4 py-2 rounded">
+                                Cambiar
+                            </button>
+                        </form>
                     </td>
-                    <td class="px-6 py-4">
-                    {{ $user->name }}
-                    </td>
-                    <td class="px-6 py-4">
-                    {{ $user->email }}
-                    </td>
-                    <td class="px-6 py-4">
-                    {{ $user->role }}
-                    </td>
-    
                 </tr>
-    
                 @endforeach
-                </tbody>
+            </tbody>
+            
         </table>
         {{ $users->links() }}
     </div>

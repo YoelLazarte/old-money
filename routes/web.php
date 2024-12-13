@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', [App\Http\Controllers\HomeController::class, "home"])
  ->name('home');
@@ -123,5 +125,9 @@ Route::get('orders/history', [\App\Http\Controllers\CartController::class, 'orde
   ->name('orders.history');
 
   Route::post('cart/update', [\App\Http\Controllers\CartController::class, 'updateCart'])->name('cart.update');
+
+
+// Ruta para cambiar roles
+Route::put('/admin/update-role/{id}', [AdminController::class, 'updateRole'])->name('admin.updateRole');
 
   
