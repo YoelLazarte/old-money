@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -40,20 +41,15 @@ return new class extends Migration
             'name' => 'valen',
             'email' => 'valentino.gasipi@davinci.edu.ar',
             'password' => \Hash::make('password'),
+            'role' => 'admin',
 
         ]);
 
         \DB::table('users')->insert([
-            'name' => 'yoe',
+            'name' => 'yoel',
             'email' => 'yoel.lazarte@davinci.edu.ar',
             'password' => \Hash::make('password'),
-
-        ]);
-        \DB::table('users')->insert([
-            'name' => 'eze',
-            'email' => 'ezequiel.duce@davinci.edu.ar',
-            'password' => \Hash::make('password'),
-
+            'role' => 'admin',
         ]);
 
     }

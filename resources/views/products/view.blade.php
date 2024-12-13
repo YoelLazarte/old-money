@@ -2,30 +2,34 @@
 @section('title', $product->name)
 
 @section('content')
-<!-- <article class="max-w-[1000px] m-auto">
-<a href="#" class="my-8 w-full flex justify-center flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-    <img class="max-w-md object-cover rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{ $product->img }}" alt="">
-
-    <div class=" flex-col justify-between p-4 leading-normal max-w-md">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</h5>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->description }}</p>
-            <div class=" flex-col">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${{ $product->price }}</h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->size }}</p>
-            </div>
-    </div>
-</a>
-</article> -->
 
 <section class="py-8 bg-white md:py-16 dark:bg-zinc-800 antialiased">
     <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
       <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+
+{{-- modificacion --------------------------  --}}
+
         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-          <img class="w-full" src="../img/{{ $product->img }}" alt="{{ $product->name }}" />
+          {{-- <img class="w-full" src="../img/{{ $product->img }}" alt="{{ $product->name }}" /> --}}
+          {{-- <img class="w-full" src="{{ Storage:url($product->cover) }}" alt="{{ $product->cover_description }}" /> --}}
+          <div>
+            @if ($product->cover)
+            <img class="w-full" src="{{ Storage::url('covers/' . $product->cover) }}" alt="{{ $product->cover_description }}" />
+
+            @else 
+            <p>Sin portada</p>
+            @endif
+          </div>
+          
         </div>
+        
+        {{-- ------------------------------------- --}}
 
         <div class="mt-6 sm:mt-8 lg:mt-0">
+          <div class="flex gap-4 items-center">
           <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">{{ $product->name }} </h1>
+          <span class="me-2 rounded bg-blue-100 px-2.5 py-0.5 h-fit text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"> {{ $product->type->name }} </span>
+          </div>
           <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
             <p
               class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
@@ -77,7 +81,9 @@
 
           <div class="mt-4">
             <h4 class="dark:text-stone-100 pb-2 font-bold">Talle</h4>
-            <span class="px-3 py-1 bg-stone-100 dark:bg-gray-400 dark:text-gray-200 rounded mt-8 border-gray-400">{{ $product->size }}</span>
+            @foreach ($product->sizes as $size)
+    <span class="px-3 py-1 bg-stone-100 dark:bg-gray-400 dark:text-gray-200 rounded mt-8 border-gray-400">{{ $size->name }}</span>
+@endforeach
           </div>
 
           <p class="mb-6 text-gray-500 dark:text-gray-400 mt-4">
@@ -92,12 +98,38 @@
                 Agregar a favoritos
             </a>
 
-            <a href="#" title="" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center" role="button">
-              <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-              </svg>
+
+            @auth
+
+
+            {{-- <form action="{{ route('products.reservation.process', ['id' => $product->product_id]) }}" method="POST" >
+              @csrf
+
+              <button type="submit" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center">
+                <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                </svg>
+                
                 Agregar al carrito
-            </a>
+              </button>
+            </form> --}}
+
+            <form action="{{ route('cart.add', ['id' => $product->product_id]) }}" method="POST" >
+              @csrf
+
+              <button type="submit" class="text-white mt-4 sm:mt-0 bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-stone-600 dark:hover:bg-stone-700 focus:outline-none dark:focus:ring-stone-800 flex items-center justify-center">
+                <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                </svg>
+                
+                Agregar al carrito 
+              </button>
+            </form>
+
+            
+            @endauth
+            
+
           </div>
 
 

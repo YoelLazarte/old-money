@@ -10,45 +10,93 @@
 
 
 
-<section class="flex flex-wrap gap-8 mx-4 justify-center">
+<section>
+  <form action="{{ route('products.index') }}" method="GET" class="flex justify-center mb-8">
+    <div class="flex gap-4 ">
+      <div>
+        <label for="s-name" class="sr-only">Nombre</label>
+        <input type="search" name="s-name" id="s-name" class="rounded-md" value="{{ $searchParams['s-name'] }}">
+      </div>
+      <div>
+        <label for="s-type" class="sr-only">Tipo de prenda</label>
+        <select
+            name="s-type"
+            id="s-type"
+            class="form-control rounded-md"
+        >
+            <option value="">Todas</option>
+            @foreach ($types as $type)
+                <option value="{{ $type->type_id }}"
+                    @selected($type->type_id == $searchParams['s-type'])
+                >
+                    {{ $type->name }}
+                </option>
+            @endforeach
+        </select>
+      </div>
+      <button class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Buscar
+        <svg class="w-4 h-4 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.05-4.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+@if ($products->isNotEmpty() && ($searchParams['s-name'] || $searchParams['s-type']))
+  <p class="text-center dark:text-white mb-4">
+    Mostrando resultados para: 
+    @if ($searchParams['s-name'] && $searchParams['s-type'])
+      <b>{{ $searchParams['s-name'] }}</b> y 
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @elseif ($searchParams['s-name'])
+      <b>{{ $searchParams['s-name'] }}</b>
+    @elseif ($searchParams['s-type'])
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @endif
+  </p>
+@elseif ($products->isEmpty() && ($searchParams['s-name'] || $searchParams['s-type']))
+  <p class="text-center dark:text-white">
+    No se encontraron resultados para 
+    @if ($searchParams['s-name'])
+      <b>{{ $searchParams['s-name'] }}</b> 
+    @endif
+    @if ($searchParams['s-type'])
+      @php
+        $selectedType = $types->firstWhere('type_id', $searchParams['s-type']);
+      @endphp
+      {{ $searchParams['s-name'] ? 'y' : '' }} 
+      <b>{{ $selectedType ? $selectedType->name : 'Tipo desconocido' }}</b>
+    @endif
+  </p>
+@endif
+
+
+<section class="flex flex-wrap gap-8 mx-4 justify-center mb-6">
+
 
         
         @foreach($products as $product)
-    <!-- <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <img class="rounded-t-lg" src="{{ $product->img }}" alt="{{ $product->name }}" />
-    </a>
-    <div class="p-5">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->description }}</p>
-        <div class="flex justify-between pe-4">
-        <div class="flex content-around dark:text-slate-300 gap-8">
-        <p class="font-bold text-lg">${{ $product->price }}</p>
-        <p class="font-bold text-lg">{{ $product->size }}</p>
-        </div>
-        <a href="{{ route('products.view', ['id' => $product->product_id]) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Ver detalles
-             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </a>
-        </div>
-    </div>
-</div> -->
-
-
-    <!-- Heading & Filters -->
     <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-zinc-700 max-w-[300px]">
         <div class="h-56 w-full">
-          <a href="#">
-            <img class="mx-auto h-full " src="../img/{{ $product->img }}" alt="{{ $product->name }}" />
+          <a href="{{ route('products.view', ['id' => $product->product_id]) }}">
+            @if ($product->cover)
+            <img class="w-full" src="{{ Storage::url('covers/' . $product->cover) }}" alt="{{ $product->cover_description }}" />
+            @else
+              <span>No hay Foto de {{ $product->name }}</span>
+            @endif
           </a>
         </div>
         <div class="pt-6">
           <div class="mb-4 flex items-center justify-between gap-4">
-            <span class="me-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"> Oferta </span>
+            <span class="me-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"> {{ $product->type->name }} </span>
 
             <div class="flex items-center justify-end gap-1">
               <button type="button" data-tooltip-target="tooltip-quick-look" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -136,8 +184,11 @@
         
 
 @endforeach
-
 </section>
+<div class="max-w-xl gap-8 mx-auto">
+  {{  $products->links() }}
+</div>
+
 
 
 

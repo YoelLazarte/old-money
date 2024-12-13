@@ -30,7 +30,7 @@
                     @enderror
                 </div>
 
-              <div class="w-full">
+              {{-- <div class="w-full">
                   <label for="img" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imágen</label>
                   <input value="{{ old('img') }}" type="file" name="img" id="img" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                   @error('img')
@@ -38,7 +38,27 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
+
+                <div class="w-full">
+                    <label for="cover" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imágen</label>
+                    <input type="file" name="cover" id="cover" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                    @error('cover')
+                          <div class="text-red-400">
+                              {{ $message }}
+                          </div>
+                      @enderror
+                  </div>
+
+                  <div class="w-full">
+                    <label for="cover_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
+                    <input value="{{old('cover_description')}}" type="text" name="cover_description" id="cover_description" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                    @error('cover_description')
+                          <div class="text-red-400">
+                              {{ $message }}
+                          </div>
+                      @enderror
+                  </div>
 
               <div class="w-full">
                   <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
@@ -50,21 +70,43 @@
                     @enderror
                 </div>
               <div>
-              <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
-                  <select value="{{ old('size') }}" id="size" name="size" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
+                  <div class="flex items-center gap-6 dark:text-white">
                     @foreach($sizes as $size)
-                        <option value="{{ $size }}">
-                            {{ $size }}
-                        </option>
+                        <div>
+                            <input class="dark:bg-gray-700 rounded-sm w-5 h-5" type="checkbox" name="size_id[]" value="{{ $size->size_id }}" @checked(in_array($size->size_id, old('size_id', [])))>
+                            {{ $size->name }}
+                        </div>
                     @endforeach
+                </div>
 
                   </select>
-                  @error('size')
+                  @error('sizes')
                         <div class="text-red-400">
                             {{ $message }}
                         </div>
                     @enderror
-              </div>
+
+                    
+                </div>
+
+                {{-- Agregado de clase --}}
+                <div>
+                    <label for="type_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+                  <select value="{{ old('type') }}" id="type_fk" name="type_fk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @foreach($types as $type)
+                        <option value="{{ $type->type_id }}">
+                            {{ $type->name }}
+                        </option>
+                    @endforeach
+    
+                  </select>
+                  @error('type')
+                        <div class="text-red-400">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
               <div class="sm:col-span-2">
                   <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
                   <textarea name="description" id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribí la descripción del Producto">{{ old('description') }}</textarea>
