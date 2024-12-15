@@ -147,11 +147,9 @@
     const deleteForm = document.getElementById('deleteForm');
     const modalProductName = document.getElementById('modalProductName');
 
-    // Actualiza la acción del formulario y el nombre del producto
     deleteForm.action = route;
     modalProductName.textContent = `¿Estás seguro de que deseas eliminar ${name}?`;
 
-    // Muestra el modal
     deleteModal.classList.remove('hidden');
     deleteModal.classList.add('flex');
 }
