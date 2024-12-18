@@ -10,6 +10,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, "home"])
 
 Route::get('/blog', [App\Http\Controllers\HomeController::class, "blog"])
  ->name('blog');
+ 
+Route::get('/close-session', [App\Http\Controllers\HomeController::class, "closeSession"])
+ ->name('close-session');
 
 Route::get('product/{id}', [App\Http\Controllers\ProductController::class, "view"])
  ->name('products.view')
@@ -20,6 +23,7 @@ Route::get('products/list', [App\Http\Controllers\ProductController::class, "ind
 
 Route::get('cart/cart', [App\Http\Controllers\CartController::class, "viewCart"])
   ->name('cart.view');
+
 
 
 

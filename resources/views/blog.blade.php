@@ -6,7 +6,8 @@
 
 
 @section('content')
-<h2 class="text-5xl mb-8 dark:text-stone-200 text-center pt-5"> Sobre nosotros </h2>
+<h1 class="text-center dark:text-slate-100 text-3xl	my-8 font-medium">Sobre Nosotros</h1>
+
 
 <!-- <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
   <div class="shrink-0">

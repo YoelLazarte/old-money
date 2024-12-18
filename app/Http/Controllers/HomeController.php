@@ -17,4 +17,8 @@ class HomeController extends Controller
     public function blog(){
         return view('blog');
     }
+
+    public function closeSession(){
+        return view('closeSession');
+    }
 }
