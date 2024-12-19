@@ -69,6 +69,25 @@
                         </form>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="4" class="bg-gray-50 dark:bg-gray-700 px-6 py-4">
+                        <strong>Compras:</strong>
+                        @if ($user->orders->isEmpty())
+                            <p>Sin compras registradas.</p>
+                        @else
+                            <ul class="list-disc ml-6">
+                                @foreach ($user->orders as $order)
+                                    @foreach ($order->products as $product)
+                                        <li>
+                                            Producto: <span class="font-semibold">{{ $product->name }}</span> - 
+                                            Cantidad: {{ $product->pivot->quantity }}
+                                        </li>
+                                    @endforeach
+                                @endforeach
+                            </ul>
+                        @endif
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
             
