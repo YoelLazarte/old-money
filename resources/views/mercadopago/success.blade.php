@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'Pago Exitoso')
 
@@ -9,8 +9,8 @@
     <p class="text-xl text-center mb-4"><b>ID del Pago: </b> {{ $paymentId }}</p>
     <p class="text-xl text-center mb-4"><b>Estado: </b> {{ $status }}</p>
     <p class="text-xl text-center mb-4"><b>ID de la Orden: </b> {{ $merchantOrderId }}</p>
-        <a href="{{ route('products.index') }}" class="px-4 py-2 text-gray-900 dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500">
-            Cancelar
+        <a href="{{ route('products.index') }}" class="px-4 py-2 flex justify-center text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 dark:focus:ring-red-300">
+            Volver
         </a>
     
 </div>
