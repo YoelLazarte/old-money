@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, "home"])
@@ -133,5 +134,10 @@ Route::get('orders/history', [\App\Http\Controllers\CartController::class, 'orde
 
 // Ruta para cambiar roles
 Route::put('/admin/update-role/{id}', [AdminController::class, 'updateRole'])->name('admin.updateRole');
+
+
+//Success de MercadoPago
+
+Route::get('/mercadopago/success', [CartController::class, 'successProcess'])->name('mercadopago.successProcess');
 
   

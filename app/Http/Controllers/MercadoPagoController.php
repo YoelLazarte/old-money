@@ -63,9 +63,17 @@ class MercadoPagoController extends Controller
     }
 
     public function successProcess(Request $request)
-    {
-        dd($request->query);
-    }
+{
+    $paymentId = $request->query('payment_id'); 
+    $status = $request->query('status');       
+    $merchantOrderId = $request->query('merchant_order_id'); 
+
+    return view('mercadopago.success', [
+        'paymentId' => $paymentId,
+        'status' => $status,
+        'merchantOrderId' => $merchantOrderId,
+    ]);
+}
 
     public function pendingProcess(Request $request)
     {
